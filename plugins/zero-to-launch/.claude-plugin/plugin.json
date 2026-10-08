@@ -1,0 +1,14 @@
+{
+  "name": "zero-to-launch",
+  "displayName": "Zero to Launch",
+  "version": "0.1.0",
+  "description": "Guided path from a raw product idea to a live production AI product: validation, product docs, AI-first repo, accounts and keys, auth, domain and email, legal, payments, monitoring, security, and go-live.",
+  "author": {
+    "name": "Vinit Metange",
+    "url": "https://vinitmetange.github.io"
+  },
+  "homepage": "https://github.com/vinitmetange/zero-to-launch",
+  "repository": "https://github.com/vinitmetange/zero-to-launch",
+  "license": "MIT",
+  "keywords": ["launch", "mvp", "startup", "supabase", "vercel", "resend", "payments", "ai-product"]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "vinitmetange",
+  "description": "Claude Code plugins by Vinit Metange for building and launching AI products",
+  "owner": {
+    "name": "Vinit Metange",
+    "url": "https://vinitmetange.github.io"
+  },
+  "plugins": [
+    {
+      "name": "zero-to-launch",
+      "source": "./plugins/zero-to-launch",
+      "description": "Guided path from a raw product idea to a live production AI product, in the right sequence, with every service, key, and setting explained."
+    }
+  ]
+}

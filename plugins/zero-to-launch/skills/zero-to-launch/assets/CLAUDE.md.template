@@ -1,0 +1,45 @@
+# <Product Name>
+
+<Two lines: what the product does and for whom. From docs/product/product-framing.md.>
+
+## Status
+
+Launch progress lives in LAUNCH_CHECKLIST.md. Read it at the start of each session.
+
+## Stack
+
+- Framework: <e.g. Next.js App Router, TypeScript, Tailwind>
+- Hosting: <e.g. Vercel>
+- Database and auth: <e.g. Supabase>
+- AI: <provider(s) and default models, see docs/ai/model-choices.md>
+- Email: <e.g. Resend>
+- Payments: <e.g. Stripe | Razorpay | none yet>
+- Other: <analytics, monitoring, jobs>
+
+## Where things live
+
+- Product docs: docs/product/ (MVP scope is the source of truth for what to build)
+- Architecture and decisions: docs/architecture/
+- AI layer: src/lib/ai/ (client.ts wrapper, prompts/, guardrails.ts, usage.ts)
+- Database: supabase/migrations/
+- Evals: evals/
+
+## Rules
+
+- All model calls go through src/lib/ai/client.ts. Do not import provider SDKs elsewhere.
+- Prompts live in src/lib/ai/prompts/. When changing one, update its version note and run the evals.
+- AI calls run server-side only, require an authenticated user, and go through quota and rate limit checks.
+- Every schema change is a migration with RLS policies in the same file. Never create tables from the dashboard.
+- The Supabase secret key (src/lib/supabase/admin.ts) is used only in webhooks, cron jobs, and admin tasks.
+- New env vars: add to .env.example in the same change and read them through src/lib/env.ts.
+- Never print, log, or commit secret values.
+- Stay inside docs/product/mvp-scope.md. If a request is outside scope, say so before building it.
+
+## Commands
+
+- `npm run dev`: local dev server
+- `npm run build`: production build
+- `npm run lint`
+- `npm run check:env`: verify env setup (prints no values)
+- `npx supabase migration new <name>` then `npx supabase db push`
+- `npx tsx evals/run.ts`: run AI evals
