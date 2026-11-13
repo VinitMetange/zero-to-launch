@@ -1,135 +1,97 @@
 # Zero to Launch
 
-A Claude Code skill that takes a raw product idea all the way to a live, production AI product — one step at a time, in the right order.
+A Claude Code plugin that takes you from a raw product idea to a live, production AI product, one step at a time, in the right order.
 
-Most people fail to launch not because any single step is hard, but because there are forty small steps, the order matters, and nobody tells them all exist. This skill removes that confusion.
+Most people do not get stuck on any single hard step. They get stuck because there are forty small ones (repo, env files, database, auth, API keys, domain, DNS, custom email, transactional email, legal pages, payments, monitoring, security), the order matters, and nobody tells you which ones exist. Zero to Launch removes that confusion. It explains why each step comes where it does, runs what it can for you, walks you click by click through the dashboard steps it cannot, and verifies each step before moving on.
 
----
+## What it covers
 
-## What it does
+| Phase | You end with |
+|---|---|
+| 0. Setup and long-lead items | Tools installed, domain bought, slow approvals (payments KYC, mailbox) already running |
+| 1. Idea and validation | Idea brief, competitor scan, a clear go / pivot / stop call |
+| 2. Product docs | Product framing and a tight MVP scope |
+| 3. Repo | GitHub repo with your docs, secrets protected from the first commit |
+| 4. AI-first blueprint | Scaffolded app with a structure built for prompts, model costs, and evals, plus CLAUDE.md and CI |
+| 5. Accounts and keys | Hosting, database, AI provider, email, all keys in place and checked |
+| 6. First build | Landing page, sign up and log in, your core AI feature, a working preview deploy |
+| 7. Domain and email | App on your domain, hello@yourdomain mailbox, app emails that land in inboxes |
+| 8. Legal and trust | Privacy, terms, refund, and contact pages |
+| 9. Payments | Checkout and webhooks, tested, then live |
+| 10. Analytics and monitoring | Usage analytics, error alerts, AI cost tracking, uptime checks |
+| 11. Security | Database access rules, secret hygiene, rate limits, AI spend caps |
+| 12. Go-live | Production deploy that passes a full new-user test |
 
-You describe your idea. Zero to Launch guides you and Claude Code through every phase in sequence — running commands itself where possible, giving exact dashboard steps where it cannot — and verifies each step actually worked before moving on.
+The default stack is Next.js, Vercel, Supabase, Resend, and Anthropic or OpenAI, with Railway when background jobs are needed. Every category has documented alternatives, and the guide picks region-appropriate defaults (for example Razorpay and India's DPDP Act for founders in India, Stripe and GDPR elsewhere).
 
-It tracks your progress in a `LAUNCH_CHECKLIST.md` in your project folder. Start a new session any time and it picks up exactly where you left off.
+It adapts to you: **guided mode** explains every term and click for first-time builders, **fast mode** gives experienced developers one line per step.
 
----
+## Requirements
 
-## The phases
+- [Claude Code](https://code.claude.com/docs/en/setup), signed in with a paid Claude plan or an Anthropic Console account. New to the terminal? Start with [docs/getting-started.md](docs/getting-started.md).
+- A computer running macOS, Windows, or Linux.
+- Expect to spend some money along the way: a domain (yearly), AI API credits (prepaid, small to start), and possibly paid plans for hosting or email once you charge customers. The guide flags each cost before you commit to it.
 
-| # | Phase | What you end up with |
-|---|---|---|
-| 0 | Setup and long-lead items | Tools installed, project folder, domain bought, slow approvals started |
-| 1 | Idea definition and validation | Idea brief + validation report with a go / pivot / stop call |
-| 2 | Product docs | Product framing and scoped MVP spec |
-| 3 | Repo and local environment | GitHub repo, local clone, docs committed |
-| 4 | AI-first repo blueprint | Scaffolded app with `CLAUDE.md`, CI, and AI-first folder structure |
-| 5 | Accounts and API keys | Every service account created in dependency order, `.env.local` verified |
-| 6 | First build | Landing page, auth, core AI feature working locally, preview deploy live |
-| 7 | Domain, DNS, and email | Custom domain on the app, mailbox on the domain, transactional email verified |
-| 8 | Legal and trust pages | Privacy, terms, refund, and contact pages live |
-| 9 | Payments | Checkout and webhooks tested, live mode activated |
-| 10 | Analytics and monitoring | Product analytics, error tracking, AI spend alerts, uptime checks |
-| 11 | Security hardening | RLS, secrets hygiene, rate limits, AI input/output controls |
-| 12 | Production go-live | Production deploy passes the full go-live checklist |
+## Install
 
-Phases that do not apply to your product (for example, payments for a free tool) are recorded as skipped with a reason.
-
----
-
-## What is included
-
-```
-SKILL.md                          the skill instruction set Claude reads
-assets/
-  LAUNCH_CHECKLIST.template.md    progress tracker copied into your project at intake
-  repo-blueprint.md               AI-first repo structure and conventions
-  CLAUDE.md.template              project memory file filled in Phase 4
-  env.example                     master .env.example, uncommented phase by phase
-  check-env.mjs                   verifies env vars exist without printing them
-  doc-templates/
-    idea-brief.md
-    validation-report.md
-    product-framing.md
-    mvp-scope.md
-references/
-  services.md                     per-category service guide: defaults, alternatives, pick-this-if rules
-  phases/
-    00-setup.md ... 12-go-live.md  detailed steps, verifications, and pitfalls for each phase
-```
-
----
-
-## Default stack
-
-The skill recommends a default service for each category. You can override any of them.
-
-| Category | Default | Why |
-|---|---|---|
-| Framework | Next.js (App Router, TypeScript) | Largest ecosystem, first-class Vercel support |
-| Hosting | Vercel | Zero-config, preview URLs, automatic HTTPS |
-| Database and auth | Supabase | Postgres + auth + storage in one, generous free tier |
-| AI provider | Anthropic or OpenAI | Strong models, SDKs, prepaid billing |
-| Transactional email | Resend | Simple API, works as SMTP for Supabase auth emails |
-| Payments (global) | Stripe | Checkout, subscriptions, customer portal |
-| Payments (India) | Razorpay | UPI, cards, subscriptions |
-| Analytics | PostHog | Events, funnels, session replay, free tier |
-| Error tracking | Sentry | Next.js wizard, free tier |
-| Rate limiting | Upstash Redis | Serverless-friendly, free tier |
-
-Alternatives for every category are documented in `references/services.md` with "pick this if" rules.
-
----
-
-## Who it is for
-
-- **Indie founders** shipping a first or second AI product
-- **Developers** who know how to code but keep stalling on the non-code parts (domains, email, payments, legal, monitoring)
-- **Product builders** who have started before and want a structured way to close the gaps
-
-It works in two modes: **guided** (explains every term, every click, checks in after each step) and **fast** (one-line instructions, batched steps, no hand-holding). The mode is set at intake and switches automatically based on your responses.
-
----
-
-## Install in Claude Code
-
-**Option 1 — Claude Code skill sync (recommended)**
-
-In Claude Code settings, add this repository as a skill source. The skill installs as `/zero-to-launch`.
-
-**Option 2 — Manual install**
+In your terminal:
 
 ```bash
-# Clone or download this repo
-git clone https://github.com/VinitMetange/zero-to-launch.git
-
-# Copy the skill into your Claude Code skills directory
-cp -r zero-to-launch ~/.claude/skills/zero-to-launch
+claude plugin marketplace add vinitmetange/zero-to-launch
+claude plugin install zero-to-launch@vinitmetange
 ```
 
-Then in any Claude Code session:
+Or, inside a Claude Code session:
 
 ```
-/zero-to-launch
+/plugin marketplace add vinitmetange/zero-to-launch
+/plugin install zero-to-launch@vinitmetange
 ```
 
-Claude will ask a few intake questions and start Phase 0.
+To update later: `claude plugin marketplace update vinitmetange`.
 
----
+## Use
 
-## Resuming a launch
+1. Create an empty folder for your project and open a terminal in it.
+2. Run `claude`.
+3. Start with either:
+   - `/zero-to-launch:zero-to-launch`, or
+   - plain words, for example: *"I have an idea for an AI tool that helps physiotherapy clinics write patient exercise plans. Help me take it from zero to launch."*
+4. Answer five short questions (your idea, experience level, country, budget, timeline) and follow along.
 
-If `LAUNCH_CHECKLIST.md` already exists in your project, running `/zero-to-launch` reads it and resumes from where you stopped — no need to re-explain your idea or redo completed steps.
+The guide creates a `LAUNCH_CHECKLIST.md` in your project. That file holds your progress and every decision you made, so a launch can span many sessions. To pick up where you left off, open Claude Code in the same folder and say *"let's continue"*.
 
----
+Already partway there? Start the same way and say what you have. The guide audits completed phases quickly instead of redoing them.
 
-## Notes
+## How it handles your keys
 
-- **Secrets:** the skill never asks you to paste API keys into chat. It asks you to put them in `.env.local` yourself and then verifies they are present without printing them.
-- **Pricing and free tiers change.** When a decision depends on current pricing, the skill checks the provider's docs before advising rather than relying on potentially stale knowledge.
-- **Service dashboards change.** If a click path described in a phase no longer matches what you see, say so and the skill will search for the current path rather than guessing.
+- You paste API keys into `.env.local` in your editor, not into chat.
+- `.env` files are excluded from git from the very first commit.
+- A bundled `check-env` script confirms every key is present without ever printing values, and flags secrets accidentally exposed to the browser.
+- Spend limits on AI providers are set before the first key is created.
 
----
+## Not legal, tax, or financial advice
+
+The guide helps you draft privacy policies and terms, and points out where tax registration may apply. Have a professional review them for your situation, especially before significant revenue or if you handle sensitive data.
+
+## Repository layout
+
+```
+.claude-plugin/marketplace.json        marketplace listing
+plugins/zero-to-launch/
+  .claude-plugin/plugin.json           plugin manifest
+  skills/zero-to-launch/
+    SKILL.md                           the guide's orchestrator
+    references/phases/                 one detailed guide per phase
+    references/services.md             service defaults, alternatives, and when to pick each
+    assets/                            checklist, doc templates, repo blueprint, env template, env checker
+docs/getting-started.md                step zero for people new to the terminal
+```
+
+## Feedback and contributions
+
+Service dashboards and pricing change often. If a step is out of date, please open an issue with the phase number and what you saw.
 
 ## License
 
-MIT
+MIT. See [LICENSE](LICENSE).
